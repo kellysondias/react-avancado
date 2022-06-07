@@ -15,7 +15,7 @@ class DeckOfCards extends Component {
     constructor() {
         super()
         this.state = {
-            cards: []
+            cardList: []
         }
     }
 
@@ -24,7 +24,7 @@ class DeckOfCards extends Component {
         const cardsData = await getCards(deckId)
 
         this.setState({
-            cards: cardsData.cards
+            cardList: cardsData.cards
         })
     }
 
