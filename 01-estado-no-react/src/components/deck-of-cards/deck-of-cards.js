@@ -33,7 +33,7 @@ class DeckOfCards extends Component {
             <section>
                 <ul>
                     {
-                        this.state.cards.map((card, index) => {
+                        this.state.cardList.map((card, index) => {
                             return (
                                 <li key={index}>
                                     <img src={card.image}alt= {card.value}></img>
