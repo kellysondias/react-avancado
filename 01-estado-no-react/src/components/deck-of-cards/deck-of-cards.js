@@ -1,4 +1,5 @@
-import {Component} from 'react'
+import {useState} from 'react'
+import {useEffect} from 'react'
 
 async function createDeck() {
     const url = await fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1')
@@ -11,8 +12,43 @@ async function getCards(deckId) {
     return await url.json()
 }
 
-class DeckOfCards extends Component {
-    constructor() {
+const DeckOfCards = () => {
+
+    const [deck, setDeck] = useState({
+        cardList: []
+    })
+
+    useEffect(() => {
+        const fetchData = async () => {
+
+            const deckId = await createDeck()
+            const cardsData = await getCards(deckId)
+
+            setDeck({
+                cardList: cardsData.cards
+            })
+    }
+
+    fetchData()
+    }, [])
+
+    return (
+        <section>
+                <ul>
+                    {
+                        deck.cardList.map((card, index) => {
+                            return (
+                                <li key={index}>
+                                    <img src={card.image}alt= {card.value}></img>
+                                </li>
+                             )
+                        })
+                    }
+                </ul>
+            </section>
+    )
+
+    /* constructor() {
         super()
         this.state = {
             cardList: []
@@ -44,7 +80,7 @@ class DeckOfCards extends Component {
                 </ul>
             </section>
         )
-    }
+    } */
 }
 
 export default DeckOfCards
